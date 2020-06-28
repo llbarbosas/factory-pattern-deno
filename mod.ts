@@ -1,17 +1,17 @@
 import DatabaseService from "./src/database.ts";
 import WebserverService from "./src/webserver.ts";
 
+import { Module } from "./util/inject.ts";
+
 import Core from "./src/core.ts";
 
-// TODO: refactor this conversion
-const core: Core = new (Core as any)().inject({
-  WebserverService: new WebserverService(),
-  DatabaseService: new DatabaseService(),
+const coreModule: Core = Module(Core, {
+  providers: [WebserverService, DatabaseService],
 });
 
 try {
-  core.start();
-  core.stop();
+  coreModule.start();
+  coreModule.stop();
 } catch (error) {
   console.log("Uncaught exception!");
   console.log(error);

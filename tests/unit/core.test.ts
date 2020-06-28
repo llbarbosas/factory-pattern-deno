@@ -1,4 +1,5 @@
 import Core from "../../src/core.ts";
+import { Module } from "../../util/inject.ts";
 
 Deno.test("must run", () => {
   const mockService = {
@@ -6,11 +7,13 @@ Deno.test("must run", () => {
     stop: () => console.log("[mock] ..."),
   };
 
-  const core: Core = new (Core as any)().inject({
-    WebserverService: mockService,
-    DatabaseService: mockService,
+  const coreModule: Core = Module(Core, {
+    providers: [
+      { provide: "WebserverService", useValue: mockService },
+      { provide: "DatabaseService", useValue: mockService },
+    ],
   });
 
-  core.start();
-  core.stop();
+  coreModule.start();
+  coreModule.stop();
 });

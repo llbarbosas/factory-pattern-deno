@@ -1,4 +1,4 @@
-import { InjectDependencies } from "../inject.ts";
+import { InjectDependencies } from "../util/inject.ts";
 
 import DatabaseService from "./database.ts";
 import WebserverService from "./webserver.ts";
