@@ -19,4 +19,4 @@ jobs:
         uses: denolib/setup-deno@v2
         with:
           deno-version: ${{ matrix.deno }}
-      - run: deno tests --config tsconfig.json
+      - run: deno test --config tsconfig.json
