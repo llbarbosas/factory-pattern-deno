@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        deno: ["v1.0.0"]
+    name: Deno ${{ matrix.deno }} sample
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deno tests
+        uses: denolib/setup-deno@v2
+        with:
+          deno-version: ${{ matrix.deno }}
+      - run: deno tests --config tsconfig.json
